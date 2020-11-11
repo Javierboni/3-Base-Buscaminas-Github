@@ -15,7 +15,7 @@ import javax.swing.SwingConstants;
 
 /**
  * Ventana principal del Buscaminas
- * @author {Rellenar por el alumno}
+ * @author Javier Bonifacio Hernández
  */
 public class VentanaPrincipal {
 
