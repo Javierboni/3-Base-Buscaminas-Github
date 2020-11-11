@@ -1,9 +1,9 @@
-BASE PARA EL BUSCAMINAS: (Javier Bonifacio Hernández)
+## BUSCAMINAS: (Javier Bonifacio Hernández)
 =========================
 
 En este programa se encuentra la base para el Buscaminas de Desarrollo de intefaces (DAM2).
 
-Pasos
+## Pasos
 -----
 
 1. Descárgate el cliente de github si no lo tienes en tu equipo. Créate una cuenta y loguéate.
