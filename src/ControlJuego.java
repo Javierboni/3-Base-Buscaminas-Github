@@ -98,8 +98,10 @@ public class ControlJuego {
 		// Este if comprueba que no nos salimos del tablero
 		for (int vertical = i - 1; vertical <= +1; vertical++) {
 			for (int horizontal = j - 1; horizontal <= j + 1; horizontal++) {
-				if(tablero[vertical][horizontal]==MINA){
-					contMinas++;
+				if(vertical>LADO_TABLERO&&vertical>0&&horizontal>LADO_TABLERO&&horizontal<0){
+					if(tablero[vertical][horizontal]==MINA){
+						contMinas++;
+					}
 				}
 			}
 		}
@@ -116,7 +118,11 @@ public class ControlJuego {
 	 * @return : Verdadero si no ha explotado una mina. Falso en caso contrario.
 	 */
 	public boolean abrirCasilla(int i, int j) {
-		return false;
+		if(tablero[i][j]==MINA){
+			return false;
+		}
+		puntuacion++;
+		return true;
 	}
 
 	/**
@@ -155,7 +161,7 @@ public class ControlJuego {
 	 * @return Un entero que representa el número de minas alrededor de la celda
 	 */
 	public int getMinasAlrededor(int i, int j) {
-		return 0;
+		return tablero[i][j];
 	}
 
 	/**
