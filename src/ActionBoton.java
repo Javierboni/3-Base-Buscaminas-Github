@@ -21,7 +21,7 @@ public class ActionBoton implements ActionListener{
 		this.j = j;
 	}
 	/**
-	 * Prueba
+	 * Prueb
 	 */
 	
 	/**
