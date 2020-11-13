@@ -58,6 +58,21 @@ public class ControlJuego {
 			}
 		}
 	}
+	/**
+	 * Comentario prueba
+	 * 
+	 * aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+	 * aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+	 * aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+	 * aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+	 * aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+	 * aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+	 * aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+	 * aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+	 * aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+	 * aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+	 * 
+	 */
 
 	private void colocarMinas() {
 		int x = 0, y = 0;
