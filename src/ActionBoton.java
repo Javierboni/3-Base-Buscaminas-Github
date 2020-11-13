@@ -20,6 +20,9 @@ public class ActionBoton implements ActionListener{
 		this.i = i;
 		this.j = j;
 	}
+	/**
+	 * Prueba
+	 */
 	
 	/**
 	 *Acción que ocurrirá cuando pulsamos uno de los botones.
