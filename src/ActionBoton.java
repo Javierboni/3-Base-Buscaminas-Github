@@ -20,9 +20,6 @@ public class ActionBoton implements ActionListener{
 		this.i = i;
 		this.j = j;
 	}
-	/**
-	 * Prueb
-	 */
 	
 	/**
 	 *Acción que ocurrirá cuando pulsamos uno de los botones.
@@ -30,9 +27,9 @@ public class ActionBoton implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(ventana.getJuego().abrirCasilla(i, j)){
-
+			ventana.mostrarNumMinasAlrededor(i, j);
 		}else{
-			ventana.getJuego().esFinJuego();
+			ventana.mostrarFinJuego(ventana.getJuego().esFinJuego());			
 		}
 	}
 

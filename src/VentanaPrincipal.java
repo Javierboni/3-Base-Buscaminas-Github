@@ -163,7 +163,20 @@ public class VentanaPrincipal {
 	 * @param j: posición horizontal de la celda.
 	 */
 	public void mostrarNumMinasAlrededor(int i , int j) {
-		//TODO
+		//Selecionar el panel[][] correspondiente
+		//Eliminar todos sus componentes
+		//Añadir un JLabel
+		//El numero de minas se saca de ControlJuego() con getMinasAlrededor()
+
+		JLabel jLabel = new JLabel();
+		panelesJuego[i][j].removeAll();
+		
+		jLabel.setText(Integer.toString(juego.getMinasAlrededor(i, j)));
+		jLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		jLabel.setForeground(correspondenciaColores[juego.getMinasAlrededor(i, j)]);
+
+		panelesJuego[i][j].add(jLabel);
+		refrescarPantalla();
 	}
 	
 	
@@ -173,7 +186,13 @@ public class VentanaPrincipal {
 	 * @post : Todos los botones se desactivan excepto el de volver a iniciar el juego.
 	 */
 	public void mostrarFinJuego(boolean porExplosion) {
-		//TODO
+		if ((JOptionPane.showConfirmDialog(ventana,
+                         "Puntuacion: " + getJuego().getPuntuacion() +"\n¿Quieres Jugar de nuevo?",
+                         "Fin de la partida", JOptionPane.YES_NO_OPTION)) == 0) {
+                    getJuego().inicializarPartida();
+               } else {
+                    ventana.dispose();
+               }
 	}
 
 	/**

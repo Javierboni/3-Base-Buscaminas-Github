@@ -46,7 +46,7 @@ public class ControlJuego {
 				tablero[i][j] = 0;
 			}
 		}
-		colocarMinas();
+		colocarMinas(); // Lo he separado en otro metodo para que quede un poco mas facil de mirar
 
 		// Al final del m�todo hay que guardar el n�mero de minas para las casillas que
 		// no son mina:
