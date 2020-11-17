@@ -11,18 +11,29 @@ import java.awt.event.ActionListener;
  */
 public class ActionBoton implements ActionListener{
 
-	
+	private VentanaPrincipal ventana;
+	private int i;
+	private int j;
 
-	public ActionBoton() {
-		//TODO
+	public ActionBoton(VentanaPrincipal ventana, int i, int j) {
+		this.ventana = ventana;
+		this.i = i;
+		this.j = j;
 	}
+	/**
+	 * Prueb
+	 */
 	
 	/**
 	 *Acción que ocurrirá cuando pulsamos uno de los botones.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//TODO
+		if(ventana.getJuego().abrirCasilla(i, j)){
+
+		}else{
+			ventana.getJuego().esFinJuego();
+		}
 	}
 
 }
