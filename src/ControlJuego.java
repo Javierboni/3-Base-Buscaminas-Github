@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.JButton;
 
 /**
  * Clase gestora del tablero de juego. Guarda una matriz de enteros representado
@@ -17,6 +18,12 @@ public class ControlJuego {
 
 	private int[][] tablero;
 	private int puntuacion;
+
+	// He añadido el setter para poder actualizar la puntuacion desde la clase
+	// ventana
+	public void setPuntuacion(int puntuacion) {
+		this.puntuacion = puntuacion;
+	}
 
 	public ControlJuego() {
 		// Creamos el tablero:
@@ -42,7 +49,7 @@ public class ControlJuego {
 		// lo pongo todo a cero para inicializarlo.
 		puntuacion = 0;
 		for (int i = 0; i < tablero.length; i++) {
-			for (int j = 0; j < tablero.length; j++) {
+			for (int j = 0; j < tablero[i].length; j++) {
 				tablero[i][j] = 0;
 			}
 		}
@@ -98,8 +105,8 @@ public class ControlJuego {
 		// Este if comprueba que no nos salimos del tablero
 		for (int vertical = i - 1; vertical <= +1; vertical++) {
 			for (int horizontal = j - 1; horizontal <= j + 1; horizontal++) {
-				if(vertical>LADO_TABLERO&&vertical>=0&&horizontal>LADO_TABLERO&&horizontal<=0){
-					if(tablero[vertical][horizontal]==MINA){
+				if (vertical > LADO_TABLERO && vertical >= 0 && horizontal > LADO_TABLERO && horizontal <= 0) {
+					if (tablero[vertical][horizontal] == MINA) {
 						contMinas++;
 					}
 				}
@@ -118,7 +125,7 @@ public class ControlJuego {
 	 * @return : Verdadero si no ha explotado una mina. Falso en caso contrario.
 	 */
 	public boolean abrirCasilla(int i, int j) {
-		if(tablero[i][j]==MINA){
+		if (tablero[i][j] == MINA) {
 			return false;
 		}
 		puntuacion++;
@@ -133,6 +140,13 @@ public class ControlJuego {
 	 *         minas.
 	 **/
 	public boolean esFinJuego() {
+		for (int i = 0; i < tablero.length; i++) {
+			for (int j = 0; j < tablero[i].length; j++) {
+				if (tablero[i][j] == 0) {
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 

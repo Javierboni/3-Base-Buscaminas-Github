@@ -27,9 +27,14 @@ public class ActionBoton implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(ventana.getJuego().abrirCasilla(i, j)){
-			ventana.mostrarNumMinasAlrededor(i, j);
+			ventana.mostrarNumMinasAlrededor(i, j);		
 		}else{
-			ventana.mostrarFinJuego(ventana.getJuego().esFinJuego());			
+			ventana.mostrarFinJuego(ventana.getJuego().esFinJuego());
+			for (int i = 0; i < ventana.getJuego().LADO_TABLERO; i++) {
+				for (int j = 0; j < ventana.getJuego().LADO_TABLERO; j++) {
+					ventana.botonesJuego[i][j].setEnabled(false);
+				}
+			}			
 		}
 	}
 

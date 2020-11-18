@@ -143,13 +143,27 @@ public class VentanaPrincipal {
 	 */
 	public void inicializarListeners(){
 		for (int i = 0; i < botonesJuego.length; i++) {
-			for (int j = 0; j < botonesJuego.length; j++) {
+			for (int j = 0; j < botonesJuego[i].length; j++) {
 				botonesJuego[i][j].addActionListener(new ActionBoton(this,i,j));
 			}
 		}
+
+		botonEmpezar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {				
+				inicializar();
+				for (int i = 0; i < juego.LADO_TABLERO; i++) {
+					for (int j = 0; j < juego.LADO_TABLERO; j++) {
+						botonesJuego[i][j].setEnabled(true);
+					}
+				}
+				getJuego().inicializarPartida();
+				getJuego().depurarTablero();
+				refrescarPantalla();
+			}
+	   });
 	}
-	
-	
+		
 	/**
 	 * Pinta en la pantalla el número de minas que hay alrededor de la celda
 	 * Saca el botón que haya en la celda determinada y añade un JLabel centrado y no editable con el número de minas alrededor.
@@ -186,20 +200,18 @@ public class VentanaPrincipal {
 	 * @post : Todos los botones se desactivan excepto el de volver a iniciar el juego.
 	 */
 	public void mostrarFinJuego(boolean porExplosion) {
-		if ((JOptionPane.showConfirmDialog(ventana,
-                         "Puntuacion: " + getJuego().getPuntuacion() +"\n¿Quieres Jugar de nuevo?",
-                         "Fin de la partida", JOptionPane.YES_NO_OPTION)) == 0) {
-                    getJuego().inicializarPartida();
-               } else {
-                    ventana.dispose();
-               }
+		if(porExplosion){
+			JOptionPane.showMessageDialog(null, "Has explotado una mina");
+		}else{
+			JOptionPane.showMessageDialog(null, "Has desactivado todas las casillas¡¡¡");
+		}
 	}
 
 	/**
 	 * Método que muestra la puntuación por pantalla.
 	 */
 	public void actualizarPuntuacion() {
-		//TODO
+		getJuego().setPuntuacion(0);
 	}
 	
 	/**
