@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.JButton;
 
 /**
  * Clase gestora del tablero de juego. Guarda una matriz de enteros representado
@@ -17,6 +18,15 @@ public class ControlJuego {
 
 	private int[][] tablero;
 	private int puntuacion;
+	private int puntuacionFinal=LADO_TABLERO*LADO_TABLERO-MINAS_INICIALES;
+
+	
+
+	// He añadido el setter para poder actualizar la puntuacion desde la clase
+	// ventana
+	public void setPuntuacion(int puntuacion) {
+		this.puntuacion = puntuacion;
+	}
 
 	public ControlJuego() {
 		// Creamos el tablero:
@@ -42,11 +52,11 @@ public class ControlJuego {
 		// lo pongo todo a cero para inicializarlo.
 		puntuacion = 0;
 		for (int i = 0; i < tablero.length; i++) {
-			for (int j = 0; j < tablero.length; j++) {
+			for (int j = 0; j < tablero[i].length; j++) {
 				tablero[i][j] = 0;
 			}
 		}
-		colocarMinas();
+		colocarMinas(); // Lo he separado en otro metodo para que quede un poco mas facil de mirar
 
 		// Al final del m�todo hay que guardar el n�mero de minas para las casillas que
 		// no son mina:
@@ -94,18 +104,19 @@ public class ControlJuego {
 	 * @return : El número de minas que hay alrededor de la casilla [i][j]
 	 **/
 	private int calculoMinasAdjuntas(int i, int j) {
-		int contMinas = 0;
-		// Este if comprueba que no nos salimos del tablero
-		for (int vertical = i - 1; vertical <= +1; vertical++) {
-			for (int horizontal = j - 1; horizontal <= j + 1; horizontal++) {
-				if(vertical>LADO_TABLERO&&vertical>0&&horizontal>LADO_TABLERO&&horizontal<0){
-					if(tablero[vertical][horizontal]==MINA){
-						contMinas++;
-					}
-				}
-			}
-		}
-		return contMinas;
+		int iInicial = Math.max(0, i-1);
+        int iFinal = Math.min(LADO_TABLERO-1, i+1);
+        int jInicial = Math.max(0, j-1);
+        int jFinal = Math.min(LADO_TABLERO-1, j+1);
+        int contMinas=0;
+        for(int vertical = iInicial; vertical <= iFinal; vertical++){
+            for(int horizontal = jInicial; horizontal <= jFinal; horizontal++){
+                if(tablero[vertical][horizontal] == MINA){
+                    contMinas++;
+                }
+            }
+        }
+        return contMinas;
 	}
 
 	/**
@@ -118,7 +129,7 @@ public class ControlJuego {
 	 * @return : Verdadero si no ha explotado una mina. Falso en caso contrario.
 	 */
 	public boolean abrirCasilla(int i, int j) {
-		if(tablero[i][j]==MINA){
+		if (tablero[i][j] == MINA) {
 			return false;
 		}
 		puntuacion++;
@@ -133,6 +144,9 @@ public class ControlJuego {
 	 *         minas.
 	 **/
 	public boolean esFinJuego() {
+		if(puntuacion==puntuacionFinal){
+			return true;
+		}
 		return false;
 	}
 
@@ -170,7 +184,7 @@ public class ControlJuego {
 	 * @return Un entero con la puntuación actual
 	 */
 	public int getPuntuacion() {
-		return 0;
+		return this.puntuacion;
 	}
 
 }
