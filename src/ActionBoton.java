@@ -32,7 +32,7 @@ public class ActionBoton implements ActionListener{
 			ventana.mostrarFinJuego(ventana.getJuego().esFinJuego());
 			for (int i = 0; i < ventana.getJuego().LADO_TABLERO; i++) {
 				for (int j = 0; j < ventana.getJuego().LADO_TABLERO; j++) {
-					ventana.botonesJuego[i][j].setEnabled(false);
+					ventana.getBotonesJuego()[i][j].setEnabled(false);
 				}
 			}			
 		}

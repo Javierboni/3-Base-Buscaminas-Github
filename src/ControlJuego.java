@@ -19,6 +19,8 @@ public class ControlJuego {
 	private int[][] tablero;
 	private int puntuacion;
 
+	
+
 	// He añadido el setter para poder actualizar la puntuacion desde la clase
 	// ventana
 	public void setPuntuacion(int puntuacion) {
@@ -101,18 +103,19 @@ public class ControlJuego {
 	 * @return : El número de minas que hay alrededor de la casilla [i][j]
 	 **/
 	private int calculoMinasAdjuntas(int i, int j) {
-		int contMinas = 0;
-		// Este if comprueba que no nos salimos del tablero
-		for (int vertical = i - 1; vertical <= +1; vertical++) {
-			for (int horizontal = j - 1; horizontal <= j + 1; horizontal++) {
-				if (vertical > LADO_TABLERO && vertical >= 0 && horizontal > LADO_TABLERO && horizontal <= 0) {
-					if (tablero[vertical][horizontal] == MINA) {
-						contMinas++;
-					}
-				}
-			}
-		}
-		return contMinas;
+		int iInicial = Math.max(0, i-1);
+        int iFinal = Math.min(LADO_TABLERO-1, i+1);
+        int jInicial = Math.max(0, j-1);
+        int jFinal = Math.min(LADO_TABLERO-1, j+1);
+        int contMinas=0;
+        for(int vertical = iInicial; vertical <= iFinal; vertical++){
+            for(int horizontal = jInicial; horizontal <= jFinal; horizontal++){
+                if(tablero[vertical][horizontal] == MINA){
+                    contMinas++;
+                }
+            }
+        }
+        return contMinas;
 	}
 
 	/**
@@ -140,14 +143,10 @@ public class ControlJuego {
 	 *         minas.
 	 **/
 	public boolean esFinJuego() {
-		for (int i = 0; i < tablero.length; i++) {
-			for (int j = 0; j < tablero[i].length; j++) {
-				if (tablero[i][j] == 0) {
-					return true;
-				}
-			}
+		if((LADO_TABLERO*LADO_TABLERO-MINAS_INICIALES)==getPuntuacion()){
+			return false;
 		}
-		return false;
+		return true;
 	}
 
 	/**
