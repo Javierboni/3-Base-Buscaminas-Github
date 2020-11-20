@@ -20,16 +20,6 @@ public class ControlJuego {
 	private int puntuacion;
 	private int puntuacionFinal=LADO_TABLERO*LADO_TABLERO-MINAS_INICIALES;
 
-	
-
-	// He añadido el setter para poder actualizar la puntuacion desde la clase
-	// ventana
-	public void setPuntuacion(int puntuacion) {
-		this.puntuacion = puntuacion;
-	}
-
-	
-
 	// He añadido el setter para poder actualizar la puntuacion desde la clase
 	// ventana
 	public void setPuntuacion(int puntuacion) {
@@ -152,17 +142,10 @@ public class ControlJuego {
 	 *         minas.
 	 **/
 	public boolean esFinJuego() {
-<<<<<<< HEAD
 		if(puntuacion==puntuacionFinal){
 			return true;
 		}
 		return false;
-=======
-		if((LADO_TABLERO*LADO_TABLERO-MINAS_INICIALES)==getPuntuacion()){
-			return false;
-		}
-		return true;
->>>>>>> 59b3f93035b71b4243f4a94e8389d17a34359054
 	}
 
 	/**
