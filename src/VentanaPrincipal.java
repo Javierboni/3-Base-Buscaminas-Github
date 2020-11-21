@@ -42,10 +42,20 @@ public class VentanaPrincipal {
 	// LA VENTANA GUARDA UN CONTROL DE JUEGO:
 	private ControlJuego juego;
 
+	/**
+	 * Getter creado para desactivar botones
+	 * 
+	 * @return
+	 */
 	public JButton[][] getBotonesJuego() {
 		return this.botonesJuego;
 	}
 
+	/**
+	 * Setter creado para desactivar botones
+	 * 
+	 * @param botonesJuego
+	 */
 	public void setBotonesJuego(JButton[][] botonesJuego) {
 		this.botonesJuego = botonesJuego;
 	}
@@ -149,21 +159,24 @@ public class VentanaPrincipal {
 	 * programa
 	 */
 	public void inicializarListeners() {
+		// Añado un Listerner a cada boton
 		for (int i = 0; i < botonesJuego.length; i++) {
 			for (int j = 0; j < botonesJuego[i].length; j++) {
 				botonesJuego[i][j].addActionListener(new ActionBoton(this, i, j));
 			}
 		}
 
+		// Añado un Listener al Boton "GO" para que reinicie el juego
 		botonEmpezar.addActionListener(new ActionListener() {
 			@Override
+			// Quito los paneles del juego
 			public void actionPerformed(ActionEvent e) {
 				for (int i = 0; i < juego.LADO_TABLERO; i++) {
 					for (int j = 0; j < juego.LADO_TABLERO; j++) {
 						panelesJuego[i][j].removeAll();
 					}
 				}
-				reset();
+				reset(); // Reinicia los botones del juego
 				juego.inicializarPartida();
 				juego.depurarTablero();
 				refrescarPantalla();
@@ -200,12 +213,11 @@ public class VentanaPrincipal {
 	public void mostrarNumMinasAlrededor(int i, int j) {
 		// Selecionar el panel[][] correspondiente
 		// Eliminar todos sus componentes
-		// Añadir un JLabel
-		// El numero de minas se saca de ControlJuego() con getMinasAlrededor()
-
 		JLabel jLabel = new JLabel();
 		panelesJuego[i][j].removeAll();
 
+		// Añadir un JLabel
+		// El numero de minas se saca de ControlJuego() con getMinasAlrededor()
 		jLabel.setText(Integer.toString(juego.getMinasAlrededor(i, j)));
 		jLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		jLabel.setForeground(correspondenciaColores[juego.getMinasAlrededor(i, j)]);
@@ -226,18 +238,18 @@ public class VentanaPrincipal {
 	 */
 	public void mostrarFinJuego(boolean porExplosion) {
 
-		// DESACTIVAR BOTONES 
+		// DESACTIVAR BOTONES
 		for (int i = 0; i < getJuego().LADO_TABLERO; i++) {
 			for (int j = 0; j < getJuego().LADO_TABLERO; j++) {
 				getBotonesJuego()[i][j].setEnabled(false);
 			}
 		}
-		if (porExplosion) {
+		if (porExplosion) { // Si recibe true hemos explotado una mina y false si no quedan minas
 			JOptionPane.showMessageDialog(null, "Has explotado una mina\n Puntuacion: " + getJuego().getPuntuacion());
 		} else {
 			JOptionPane.showMessageDialog(null,
 					"¡¡¡Has desactivado todas las casillas!!!\n Puntuacion: " + getJuego().getPuntuacion());
-		}		
+		}
 	}
 
 	/**
@@ -250,7 +262,7 @@ public class VentanaPrincipal {
 	/**
 	 * Método para refrescar la pantalla
 	 */
-	public void refrescarPantalla() {		
+	public void refrescarPantalla() {
 		ventana.revalidate();
 		ventana.repaint();
 	}

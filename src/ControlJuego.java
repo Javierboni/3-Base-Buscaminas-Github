@@ -18,7 +18,9 @@ public class ControlJuego {
 
 	private int[][] tablero;
 	private int puntuacion;
-	private int puntuacionFinal=LADO_TABLERO*LADO_TABLERO-MINAS_INICIALES;
+
+	// Variable creada para que sea mas facil de leer el metodo esFinJuego()
+	private int puntuacionFinal = (LADO_TABLERO * LADO_TABLERO) - MINAS_INICIALES;
 
 	// He añadido el setter para poder actualizar la puntuacion desde la clase
 	// ventana
@@ -46,7 +48,7 @@ public class ControlJuego {
 	 */
 	public void inicializarPartida() {
 
-		// TODO: Repartir minas e inicializar puntaci�n. Si hubiese un tablero anterior,
+		// TODO: Repartir minas e inicializar puntacion. Si hubiese un tablero anterior,
 		// lo pongo todo a cero para inicializarlo.
 		puntuacion = 0;
 		for (int i = 0; i < tablero.length; i++) {
@@ -73,6 +75,8 @@ public class ControlJuego {
 			x = aleatorioLado();
 			y = aleatorioLado();
 			if (tablero[x][y] == MINA) {
+				// Creo este while a parte del if para asegurarme de que nunca me va a poner dos
+				// minas en el mismo sitio
 				while (tablero[x][y] == MINA) {
 					x = aleatorioLado();
 					y = aleatorioLado();
@@ -102,19 +106,21 @@ public class ControlJuego {
 	 * @return : El número de minas que hay alrededor de la casilla [i][j]
 	 **/
 	private int calculoMinasAdjuntas(int i, int j) {
-		int iInicial = Math.max(0, i-1);
-        int iFinal = Math.min(LADO_TABLERO-1, i+1);
-        int jInicial = Math.max(0, j-1);
-        int jFinal = Math.min(LADO_TABLERO-1, j+1);
-        int contMinas=0;
-        for(int vertical = iInicial; vertical <= iFinal; vertical++){
-            for(int horizontal = jInicial; horizontal <= jFinal; horizontal++){
-                if(tablero[vertical][horizontal] == MINA){
-                    contMinas++;
-                }
-            }
-        }
-        return contMinas;
+		int iInicial = Math.max(0, i - 1);
+		int iFinal = Math.min(LADO_TABLERO - 1, i + 1);
+		int jInicial = Math.max(0, j - 1);
+		int jFinal = Math.min(LADO_TABLERO - 1, j + 1);
+		int contMinas = 0;
+
+		// Compruebo si hay minas alrededor y si las hay las sumo al contador
+		for (int vertical = iInicial; vertical <= iFinal; vertical++) {
+			for (int horizontal = jInicial; horizontal <= jFinal; horizontal++) {
+				if (tablero[vertical][horizontal] == MINA) {
+					contMinas++;
+				}
+			}
+		}
+		return contMinas;
 	}
 
 	/**
@@ -142,7 +148,7 @@ public class ControlJuego {
 	 *         minas.
 	 **/
 	public boolean esFinJuego() {
-		if(puntuacion==puntuacionFinal){
+		if (puntuacion == puntuacionFinal) {
 			return true;
 		}
 		return false;
