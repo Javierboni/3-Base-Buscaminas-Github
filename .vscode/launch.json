@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Principal",
+            "request": "launch",
+            "mainClass": "Principal",
+            "projectName": "3-Base-Buscaminas-Github_1279574a"
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
             "mainClass": "${file}"
