@@ -1,10 +1,13 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,11 +15,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.plaf.FontUIResource;
 
 /**
- * Ventana principal del Buscaminas
+ * Ventana principal del Buscaminas, esta clase será la encargada de crear y
+ * modificar la parte gráfica del buscaminas.
  * 
+ * @see ControlJuego
  * @author Javier Bonifacio Hernández
+ * @since 1.0
+ * @version 1.0
  */
 public class VentanaPrincipal {
 
@@ -42,6 +51,15 @@ public class VentanaPrincipal {
 	// LA VENTANA GUARDA UN CONTROL DE JUEGO:
 	private ControlJuego juego;
 
+	// Color de fondo que aplicare a todo el juego
+	Color colorFondo = Color.decode("#FAFFFF");
+
+	// Fuente que aplicare al botonEmpezar y a la pantalla de la puntuacion
+	private Font fuenteC=new FontUIResource("", Font.BOLD, 20);
+
+	// Imagen que insertare en las casillas que sean minas cuando el juego acabe
+	private Icon iExplosion = new ImageIcon(getClass().getResource("img/Explosion.png"));
+
 	/**
 	 * Getter creado para desactivar botones
 	 * 
@@ -64,6 +82,7 @@ public class VentanaPrincipal {
 	public VentanaPrincipal() {
 		ventana = new JFrame();
 		ventana.setBounds(100, 100, 700, 500);
+		ventana.setLocationRelativeTo(null); // Para que aparezca en el centro de la pantalla
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		juego = new ControlJuego();
 	}
@@ -84,15 +103,22 @@ public class VentanaPrincipal {
 		panelJuego.setLayout(new GridLayout(10, 10));
 
 		botonEmpezar = new JButton("Go!");
+		botonEmpezar.setFont(fuenteC);
 		pantallaPuntuacion = new JTextField("0");
+		pantallaPuntuacion.setFont(fuenteC);
+		pantallaPuntuacion.setBackground(colorFondo);
 		pantallaPuntuacion.setEditable(false);
 		pantallaPuntuacion.setHorizontalAlignment(SwingConstants.CENTER);
 
-		// Bordes y colores:
+		// Bordes y colores y fuentes.
 		panelImagen.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+		panelImagen.setBackground(colorFondo);
 		panelEmpezar.setBorder(BorderFactory.createTitledBorder("Empezar"));
+		panelEmpezar.setBackground(colorFondo);
 		panelPuntuacion.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+		panelPuntuacion.setBackground(colorFondo);
 		panelJuego.setBorder(BorderFactory.createTitledBorder("Juego"));
+		panelJuego.setBackground(colorFondo);
 
 		// Colocamos los componentes:
 		// AZUL
@@ -103,6 +129,7 @@ public class VentanaPrincipal {
 		settings.weighty = 1;
 		settings.fill = GridBagConstraints.BOTH;
 		ventana.add(panelImagen, settings);
+		
 		// VERDE
 		settings = new GridBagConstraints();
 		settings.gridx = 1;
@@ -111,6 +138,7 @@ public class VentanaPrincipal {
 		settings.weighty = 1;
 		settings.fill = GridBagConstraints.BOTH;
 		ventana.add(panelEmpezar, settings);
+		
 		// AMARILLO
 		settings = new GridBagConstraints();
 		settings.gridx = 2;
@@ -119,6 +147,7 @@ public class VentanaPrincipal {
 		settings.weighty = 1;
 		settings.fill = GridBagConstraints.BOTH;
 		ventana.add(panelPuntuacion, settings);
+		
 		// ROJO
 		settings = new GridBagConstraints();
 		settings.gridx = 0;
@@ -136,6 +165,7 @@ public class VentanaPrincipal {
 				panelesJuego[i][j] = new JPanel();
 				panelesJuego[i][j].setLayout(new GridLayout(1, 1));
 				panelJuego.add(panelesJuego[i][j]);
+				panelesJuego[i][j].setBackground(colorFondo);
 			}
 		}
 
@@ -143,7 +173,7 @@ public class VentanaPrincipal {
 		botonesJuego = new JButton[10][10];
 		for (int i = 0; i < botonesJuego.length; i++) {
 			for (int j = 0; j < botonesJuego[i].length; j++) {
-				botonesJuego[i][j] = new JButton("-");
+				botonesJuego[i][j] = new JButton("");
 				panelesJuego[i][j].add(botonesJuego[i][j]);
 			}
 		}
@@ -159,6 +189,7 @@ public class VentanaPrincipal {
 	 * programa
 	 */
 	public void inicializarListeners() {
+		
 		// Añado un Listerner a cada boton
 		for (int i = 0; i < botonesJuego.length; i++) {
 			for (int j = 0; j < botonesJuego[i].length; j++) {
@@ -184,11 +215,14 @@ public class VentanaPrincipal {
 		});
 	}
 
+	/**
+	 * Metodo que reinicia los botones
+	 */
 	private void reset() {
 		botonesJuego = new JButton[10][10];
 		for (int i = 0; i < botonesJuego.length; i++) {
 			for (int j = 0; j < botonesJuego[i].length; j++) {
-				botonesJuego[i][j] = new JButton("-");
+				botonesJuego[i][j] = new JButton("");
 				panelesJuego[i][j].add(botonesJuego[i][j]);
 			}
 		}
@@ -218,7 +252,12 @@ public class VentanaPrincipal {
 
 		// Añadir un JLabel
 		// El numero de minas se saca de ControlJuego() con getMinasAlrededor()
-		jLabel.setText(Integer.toString(juego.getMinasAlrededor(i, j)));
+		if (getJuego().getMinasAlrededor(i, j) != 0) {
+			jLabel.setText(String.valueOf(getJuego().getMinasAlrededor(i, j)));
+			jLabel.setForeground(correspondenciaColores[Integer.parseInt(jLabel.getText())]);
+		}
+		
+		//jLabel.setText(Integer.toString(juego.getMinasAlrededor(i, j)));
 		jLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		jLabel.setForeground(correspondenciaColores[juego.getMinasAlrededor(i, j)]);
 
@@ -242,13 +281,23 @@ public class VentanaPrincipal {
 		for (int i = 0; i < getJuego().LADO_TABLERO; i++) {
 			for (int j = 0; j < getJuego().LADO_TABLERO; j++) {
 				getBotonesJuego()[i][j].setEnabled(false);
+
+				// Si son minas insertamos la imagen
+				if (juego.getMinasAlrededor(i, j) == -1) {
+					botonesJuego[i][j].setText("");
+					botonesJuego[i][j].setIcon(iExplosion);
+					getBotonesJuego()[i][j].setEnabled(true);
+					botonesJuego[i][j].setBackground(colorFondo);
+				}
 			}
 		}
-		if (porExplosion) { // Si recibe true hemos explotado una mina y false si no quedan minas
-			JOptionPane.showMessageDialog(null, "Has explotado una mina\n Puntuacion: " + getJuego().getPuntuacion());
+
+		// Si recibe true hemos explotado una mina y false si no quedan minas
+		if (porExplosion) {
+			JOptionPane.showMessageDialog(null, "Has explotado una mina\nPuntuacion: " + getJuego().getPuntuacion());
 		} else {
 			JOptionPane.showMessageDialog(null,
-					"¡¡¡Has desactivado todas las casillas!!!\n Puntuacion: " + getJuego().getPuntuacion());
+					"¡¡¡Has desactivado todas las casillas!!!\nPuntuacion: " + getJuego().getPuntuacion());
 		}
 	}
 

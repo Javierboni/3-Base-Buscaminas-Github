@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.JButton;
 
 /**
  * Clase gestora del tablero de juego. Guarda una matriz de enteros representado
